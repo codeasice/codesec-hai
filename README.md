@@ -14,7 +14,7 @@ Requires following Configuration Settings in App.Config:
 
 Sample App.Config
 -----------------
-'''
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <appSettings>
@@ -25,7 +25,7 @@ Sample App.Config
     <add key ="HAC_Enc2" value = "FEDCBA9876543210"/>
   </appSettings>
 </configuration>
-'''
+```
 
 Dependencies
 ------------
