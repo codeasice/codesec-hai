@@ -28,16 +28,9 @@ namespace codesec
         private String HAC_Enc2 = ConfigurationSettings.AppSettings["HAC_Enc2"];
 
          private FayeClient rc;
-         public Codesec()
-         {
-            rc = new FayeClient();
-            Log("   ___         _                ");
-            Log("  / __|___  __| |___ ___ ___ __ ");
-            Log(" | (__/ _ \\/ _` / -_|_-</ -_) _|");
-            Log("  \\___\\___/\\__,_\\___/__/\\___\\__|");
-            Log("Codesec HAI Omni LTe Connector");
-            Log("");
 
+        public void HAC_Connect()
+        {
             HAC = new clsHAC();
             LogNoLine("Connecting to HAC...");
             Connect();
@@ -65,8 +58,22 @@ namespace codesec
              HAC.Connection.Send(new clsOL2EnableNotifications(HAC.Connection, true), null);
              Log("[DONE]");
 
+        }
+
+         public Codesec()
+         {
+            rc = new FayeClient();
+            Log("   ___         _                ");
+            Log("  / __|___  __| |___ ___ ___ __ ");
+            Log(" | (__/ _ \\/ _` / -_|_-</ -_) _|");
+            Log("  \\___\\___/\\__,_\\___/__/\\___\\__|");
+            Log("Codesec HAI Omni LTe Connector");
+            Log("");
+            
+             HAC_Connect();
+
              Log("Strike the Escape (Esc) key to quit:");
-             doinstuff = true;
+             bool doinstuff = true;
              while (doinstuff)
              {
                  if (Console.KeyAvailable)
@@ -277,9 +284,12 @@ namespace codesec
                      default:
                          break;
                  }
-              if ((HAC == null) ||
-                    (HAC.Connection.ConnectionState == enuOmniLinkConnectionState.Offline))
-                  LogLine("SetOnLineStatus(false);");
+                 if ((HAC == null) ||
+                       (HAC.Connection.ConnectionState == enuOmniLinkConnectionState.Offline))
+                 {
+                     LogLine("SetOnLineStatus(false);");
+                     HAC_Connect();
+                 }
          }
 
         private bool HandleUnsolicitedPackets(byte[] B)

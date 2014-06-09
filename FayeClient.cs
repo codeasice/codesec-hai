@@ -24,12 +24,19 @@ namespace codesec
             String data = "{\\\"zone\\\":\\\"" + key + "\\\", \\\"stamp\\\":\\\"" + DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssK") + "\\\"}";
             String str = "{\"channel\":\"/messages/zonestatus\", \"data\":\"" + data + "\"}";
 
-            using (System.Net.WebClient client = new WebClient())
+            try
             {
-                byte[] response = client.UploadValues(fayeURL, new NameValueCollection()
+                using (System.Net.WebClient client = new WebClient())
+                {
+                    byte[] response = client.UploadValues(fayeURL, new NameValueCollection()
                 {
                    { "message",  str},
                 });
+                }
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 

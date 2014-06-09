@@ -12,7 +12,7 @@ namespace codesec
         static void Main(string[] args)
         {
             codesec = new Codesec();
-            System.Threading.Thread.Sleep(100000);
+            //System.Threading.Thread.Sleep(100000);
         }
     }
 }
